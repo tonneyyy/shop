@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxzy.mapper.GoodsInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hxzy.entity.GoodsInfo">
+    <id column="goods_id" jdbcType="INTEGER" property="id" />
+    <result column="goods_name" jdbcType="VARCHAR" property="name" />
+    <result column="goods_serial" jdbcType="VARCHAR" property="goods_serial" />
+    <result column="goods_img" jdbcType="VARCHAR" property="img" />
+    <result column="goods_sort" jdbcType="INTEGER" property="sort" />
+    <result column="type_cate_one" jdbcType="INTEGER" property="type_cate_one" />
+    <result column="oneName" jdbcType="VARCHAR" property="oneName" />
+    <result column="type_cate_two" jdbcType="INTEGER" property="type_cate_two" />
+    <result column="twoName" jdbcType="VARCHAR" property="twoName" />
+    <result column="type_cat_three" jdbcType="INTEGER" property="type_cat_three" />
+    <result column="threeName" jdbcType="VARCHAR" property="threeName" />
+    <result column="brand_id" jdbcType="INTEGER" property="brand_id" />
+    <result column="store_number" jdbcType="INTEGER" property="storeNumber" />
+    <result column="limit_sell" jdbcType="INTEGER" property="limit_sell" />
+    <result column="selled_number" jdbcType="INTEGER" property="selled_number" />
+    <result column="warn_number" jdbcType="INTEGER" property="warn_number" />
+    <result column="market_price" jdbcType="DECIMAL" property="market_price" />
+    <result column="shop_price" jdbcType="DECIMAL" property="shopPrice" />
+    <result column="goods_point" jdbcType="INTEGER" property="goods_point" />
+    <result column="act_type" jdbcType="INTEGER" property="act_type" />
+    <result column="goods_enable" jdbcType="BIT" property="goodsEnable" />
+    <result column="is_gift" jdbcType="BIT" property="isGift" />
+    <result column="discount_price" jdbcType="DECIMAL" property="discount_price" />
+    <result column="discount_min" jdbcType="INTEGER" property="discount_min" />
+    <result column="sales_price" jdbcType="DECIMAL" property="sales_price" />
+    <result column="sales_max" jdbcType="INTEGER" property="sales_max" />
+    <result column="sales_rest" jdbcType="INTEGER" property="sales_rest" />
+    <result column="sales_start_time" jdbcType="TIMESTAMP" property="sales_start_time" />
+    <result column="sales_end_time" jdbcType="TIMESTAMP" property="sales_end_time" />
+    <result column="limit_price" jdbcType="DECIMAL" property="limit_price" />
+    <result column="limit_max" jdbcType="INTEGER" property="limit_max" />
+    <result column="limit_rest" jdbcType="INTEGER" property="limit_rest" />
+    <result column="limit_start_time" jdbcType="TIMESTAMP" property="limit_start_time" />
+    <result column="limit_end_time" jdbcType="TIMESTAMP" property="limit_end_time" />
+    <result column="visits" jdbcType="INTEGER" property="visits" />
+    <result column="type_sub_id" jdbcType="INTEGER" property="type_sub_id" />
+    <result column="selled_define" jdbcType="INTEGER" property="selled_define" />
+  </resultMap>
+  <select id="search" resultMap="BaseResultMap">
+    SELECT
+    b.*,
+    a.goods_name AS twoName
+    FROM
+    rw_goods_info AS a
+    RIGHT JOIN rw_goods_info AS b ON a.goods_id = b.type_cate_one
+
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    b.*,
+    a.goods_name AS twoName
+    FROM
+    rw_goods_info AS a
+    RIGHT JOIN rw_goods_info AS b ON a.goods_id = b.type_cate_one
+    where b.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rw_goods_info
+    where goods_id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxzy.entity.GoodsInfo">
+    insert into rw_goods_info (goods_id, goods_name, goods_serial, 
+      goods_img, goods_sort, type_cate_one, 
+      type_cate_two, type_cat_three, brand_id, 
+      store_number, limit_sell, selled_number, 
+      warn_number, market_price, shop_price, 
+      goods_point, act_type, goods_enable, 
+      is_gift, discount_price, discount_min, 
+      sales_price, sales_max, sales_rest, 
+      sales_start_time, sales_end_time, limit_price, 
+      limit_max, limit_rest, limit_start_time, 
+      limit_end_time, visits, type_sub_id, 
+      selled_define, summary)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{goods_serial,jdbcType=VARCHAR}, 
+      #{img,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{type_cate_one,jdbcType=INTEGER}, 
+      #{type_cate_two,jdbcType=INTEGER}, #{type_cat_three,jdbcType=INTEGER}, #{brand_id,jdbcType=INTEGER}, 
+      #{storeNumber,jdbcType=INTEGER}, #{limit_sell,jdbcType=INTEGER}, #{selled_number,jdbcType=INTEGER}, 
+      #{warn_number,jdbcType=INTEGER}, #{market_price,jdbcType=DECIMAL}, #{shopPrice,jdbcType=DECIMAL}, 
+      #{goods_point,jdbcType=INTEGER}, #{act_type,jdbcType=INTEGER}, #{goodsEnable,jdbcType=BIT}, 
+      #{isGift,jdbcType=BIT}, #{discount_price,jdbcType=DECIMAL}, #{discount_min,jdbcType=INTEGER}, 
+      #{sales_price,jdbcType=DECIMAL}, #{sales_max,jdbcType=INTEGER}, #{sales_rest,jdbcType=INTEGER}, 
+      #{sales_start_time,jdbcType=TIMESTAMP}, #{sales_end_time,jdbcType=TIMESTAMP}, #{limit_price,jdbcType=DECIMAL}, 
+      #{limit_max,jdbcType=INTEGER}, #{limit_rest,jdbcType=INTEGER}, #{limit_start_time,jdbcType=TIMESTAMP}, 
+      #{limit_end_time,jdbcType=TIMESTAMP}, #{visits,jdbcType=INTEGER}, #{type_sub_id,jdbcType=INTEGER}, 
+      #{selled_define,jdbcType=INTEGER}, #{summary,jdbcType=LONGVARCHAR})
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxzy.entity.GoodsInfo">
+    update rw_goods_info
+    <set>
+      <if test="name != null">
+        goods_name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="goods_serial != null">
+        goods_serial = #{goods_serial,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null">
+        goods_img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        goods_sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="type_cate_one != null">
+        type_cate_one = #{type_cate_one,jdbcType=INTEGER},
+      </if>
+      <if test="type_cate_two != null">
+        type_cate_two = #{type_cate_two,jdbcType=INTEGER},
+      </if>
+      <if test="type_cat_three != null">
+        type_cat_three = #{type_cat_three,jdbcType=INTEGER},
+      </if>
+      <if test="brand_id != null">
+        brand_id = #{brand_id,jdbcType=INTEGER},
+      </if>
+      <if test="storeNumber != null">
+        store_number = #{storeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="limit_sell != null">
+        limit_sell = #{limit_sell,jdbcType=INTEGER},
+      </if>
+      <if test="selled_number != null">
+        selled_number = #{selled_number,jdbcType=INTEGER},
+      </if>
+      <if test="warn_number != null">
+        warn_number = #{warn_number,jdbcType=INTEGER},
+      </if>
+      <if test="market_price != null">
+        market_price = #{market_price,jdbcType=DECIMAL},
+      </if>
+      <if test="shopPrice != null">
+        shop_price = #{shopPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goods_point != null">
+        goods_point = #{goods_point,jdbcType=INTEGER},
+      </if>
+      <if test="act_type != null">
+        act_type = #{act_type,jdbcType=INTEGER},
+      </if>
+      <if test="goodsEnable != null">
+        goods_enable = #{goodsEnable,jdbcType=BIT},
+      </if>
+      <if test="isGift != null">
+        is_gift = #{isGift,jdbcType=BIT},
+      </if>
+      <if test="discount_price != null">
+        discount_price = #{discount_price,jdbcType=DECIMAL},
+      </if>
+      <if test="discount_min != null">
+        discount_min = #{discount_min,jdbcType=INTEGER},
+      </if>
+      <if test="sales_price != null">
+        sales_price = #{sales_price,jdbcType=DECIMAL},
+      </if>
+      <if test="sales_max != null">
+        sales_max = #{sales_max,jdbcType=INTEGER},
+      </if>
+      <if test="sales_rest != null">
+        sales_rest = #{sales_rest,jdbcType=INTEGER},
+      </if>
+      <if test="sales_start_time != null">
+        sales_start_time = #{sales_start_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sales_end_time != null">
+        sales_end_time = #{sales_end_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="limit_price != null">
+        limit_price = #{limit_price,jdbcType=DECIMAL},
+      </if>
+      <if test="limit_max != null">
+        limit_max = #{limit_max,jdbcType=INTEGER},
+      </if>
+      <if test="limit_rest != null">
+        limit_rest = #{limit_rest,jdbcType=INTEGER},
+      </if>
+      <if test="limit_start_time != null">
+        limit_start_time = #{limit_start_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="limit_end_time != null">
+        limit_end_time = #{limit_end_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visits != null">
+        visits = #{visits,jdbcType=INTEGER},
+      </if>
+      <if test="type_sub_id != null">
+        type_sub_id = #{type_sub_id,jdbcType=INTEGER},
+      </if>
+      <if test="selled_define != null">
+        selled_define = #{selled_define,jdbcType=INTEGER},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where goods_id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hxzy.entity.GoodsInfo">
+    update rw_goods_info
+    set goods_name = #{name,jdbcType=VARCHAR},
+      goods_serial = #{goods_serial,jdbcType=VARCHAR},
+      goods_img = #{img,jdbcType=VARCHAR},
+      goods_sort = #{sort,jdbcType=INTEGER},
+      type_cate_one = #{type_cate_one,jdbcType=INTEGER},
+      type_cate_two = #{type_cate_two,jdbcType=INTEGER},
+      type_cat_three = #{type_cat_three,jdbcType=INTEGER},
+      brand_id = #{brand_id,jdbcType=INTEGER},
+      store_number = #{storeNumber,jdbcType=INTEGER},
+      limit_sell = #{limit_sell,jdbcType=INTEGER},
+      selled_number = #{selled_number,jdbcType=INTEGER},
+      warn_number = #{warn_number,jdbcType=INTEGER},
+      market_price = #{market_price,jdbcType=DECIMAL},
+      shop_price = #{shopPrice,jdbcType=DECIMAL},
+      goods_point = #{goods_point,jdbcType=INTEGER},
+      act_type = #{act_type,jdbcType=INTEGER},
+      goods_enable = #{goodsEnable,jdbcType=BIT},
+      is_gift = #{isGift,jdbcType=BIT},
+      discount_price = #{discount_price,jdbcType=DECIMAL},
+      discount_min = #{discount_min,jdbcType=INTEGER},
+      sales_price = #{sales_price,jdbcType=DECIMAL},
+      sales_max = #{sales_max,jdbcType=INTEGER},
+      sales_rest = #{sales_rest,jdbcType=INTEGER},
+      sales_start_time = #{sales_start_time,jdbcType=TIMESTAMP},
+      sales_end_time = #{sales_end_time,jdbcType=TIMESTAMP},
+      limit_price = #{limit_price,jdbcType=DECIMAL},
+      limit_max = #{limit_max,jdbcType=INTEGER},
+      limit_rest = #{limit_rest,jdbcType=INTEGER},
+      limit_start_time = #{limit_start_time,jdbcType=TIMESTAMP},
+      limit_end_time = #{limit_end_time,jdbcType=TIMESTAMP},
+      visits = #{visits,jdbcType=INTEGER},
+      type_sub_id = #{type_sub_id,jdbcType=INTEGER},
+      selled_define = #{selled_define,jdbcType=INTEGER}
+    where goods_id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
